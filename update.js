@@ -70,11 +70,11 @@ function setup() {
     });
   });
 
-  const loader = new THREE.GLTFLoader();
-  loader.load('./assets/big_axe.glb', (gltf) => {
-    const model = gltf.scene;
-    scene.add(model);
-  });
+  // const loader = new THREE.GLTFLoader();
+  // loader.load('./assets/big_axe.glb', (gltf) => {
+  //   const model = gltf.scene;
+  //   scene.add(model);
+  // });
 }
 
 var frames = 0;

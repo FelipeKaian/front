@@ -1,6 +1,6 @@
 var myId;
 
-const socket = io('ws://localhost:8080');
+const socket = io('ws://5de7-187-44-245-14.ngrok-free.app');
 
 socket.on('connected', (id) => {
   myId = id;
