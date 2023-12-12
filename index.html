@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      #fpsDisplay {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px 10px;
+      }
+      canvas {
+        display: block;
+        position: absolute;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.131.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="fpsDisplay"></div>
+    <script src="functions.js"></script>
+    <script src="socket.js"></script>
+    <script src="keyBind.js"></script>
+    <script src="objects.js"></script>
+    <script src="update.js"></script>
+    <script src="render.js"></script>
+  </body>
+</html>
