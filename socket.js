@@ -37,4 +37,4 @@ setInterval(() => {
       az: player.rotation.z,
     });
   }
-}, 15);
+}, 0);
