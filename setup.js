@@ -5,6 +5,9 @@ var frames = 0;
 var players = {};
 
 function setup() {
+
+    alert("v1.0")
+
     scene.add(player);
     scene.add(floor);
     floor.position.y = -1;
