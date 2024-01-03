@@ -3,7 +3,7 @@ function update() {
 
   player.update()
 
-  players.forEach((p)=>p.update())
+  Object.values(players).forEach((p)=>p.update())
 
   if (player.spd != 0.1) {
     let p = new Particle(
