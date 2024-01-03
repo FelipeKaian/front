@@ -6,6 +6,11 @@ socket.on('connected', (id) => {
   myId = id;
 });
 
+socket.on('disconnected', (id) => {
+  scene.remove(players[id]);
+  delete players[id];
+});
+
 socket.on('playerUpdate', (playerUpdate) => {
   if (!players[playerUpdate.id]) {
     insertNewPlayer(playerUpdate);

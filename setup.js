@@ -6,7 +6,7 @@ var players = {};
 
 function setup() {
 
-    alert("v1.1")
+    alert("v1.2")
 
     scene.add(player);
     scene.add(floor);
