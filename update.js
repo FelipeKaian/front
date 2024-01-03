@@ -17,9 +17,9 @@ function update() {
 
   updatableObjects.forEach((b) => {
     b.update();
-    // if(player.colidesWith(b) && b.spawnerId !== null && b.spawnerId !== myId){
-    //   alert("You lose!");
-    // }
+    if(player.colidesWith(b) && b.spawnerId !== null && b.spawnerId !== myId){
+      alert("You lose!");
+    }
   });
 
   if (
