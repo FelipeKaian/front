@@ -12,6 +12,12 @@ class Player extends THREE.Mesh {
     this.vz = 0;
     this.spd = 0.1;
     this.isDashing = false;
+    this.keyW = false;
+    this.keyA = false;
+    this.keyS = false;
+    this.keyD = false;
+    this.keySpace = false;
+    this.keyShift = false;
   }
   fall() {
     this.vy -= 0.001;
@@ -75,29 +81,96 @@ class Player extends THREE.Mesh {
   moveZ(z) {
     this.position.z += z;
   }
-  update(update) {
+  override(update){
     this.position.x = update.x;
     this.position.y = update.y;
     this.position.z = update.z;
     this.rotation.x = update.ax;
     this.rotation.y = update.ay;
     this.rotation.z = update.az;
+    this.keyW = update.keyW;
+    this.keyA = update.keyA;
+    this.keyS = update.keyS;
+    this.keyD = update.keyD;
+    this.keySpace = update.keySpace;
+    this.keyShift = update.keyShift;
   }
-  colidesWith(object){
+  update() {
+    let targetAngle = 0;
+    let animate = false;
+    if (this.keyW) {
+      if (this.keyA) {
+        this.moveX(-this.spd * Math.cos(Math.PI / 4));
+        this.moveZ(-this.spd * Math.cos(Math.PI / 4));
+        targetAngle = 45;
+      } else if (this.keyD) {
+        this.moveX(this.spd * Math.cos(Math.PI / 4));
+        this.moveZ(-this.spd * Math.cos(Math.PI / 4));
+        targetAngle = -45;
+      } else {
+        this.moveZ(-this.spd);
+        targetAngle = 0;
+      }
+      animate = true;
+    } else if (this.keyS) {
+      if (this.keyA) {
+        this.moveX(-this.spd * Math.cos(Math.PI / 4));
+        this.moveZ(this.spd * Math.cos(Math.PI / 4));
+        targetAngle = 135;
+      } else if (this.keyD) {
+        this.moveX(this.spd * Math.cos(Math.PI / 4));
+        this.moveZ(this.spd * Math.cos(Math.PI / 4));
+        targetAngle = 225;
+      } else {
+        this.moveZ(this.spd);
+        targetAngle = 180;
+      }
+      animate = true;
+    } else if (this.keyA) {
+      this.moveX(-this.spd);
+      targetAngle = 90;
+      animate = true;
+    } else if (this.keyD) {
+      this.moveX(this.spd);
+      targetAngle = -90;
+      animate = true;
+    }
+
+    targetAngle += 360;
+
+    targetAngle = targetAngle % 360;
+
+    if (animate) {
+      this.rotation.y =
+        (this.rotation.y * 1.8 + (targetAngle / 180) * Math.PI * 0.2) / 2;
+    }
+
+    if (this.keyShift && !this.isDashing) {
+      this.isDashing = true;
+      this.spd = 0.6;
+      setTimeout(() => {
+        this.spd = 0.1;
+      }, 100);
+      setTimeout(() => {
+        this.isDashing = false;
+      }, 2000);
+    }
+  }
+  colidesWith(object) {
     const playerX = this.position.x;
     const playerY = this.position.y;
     const objectX = object.position.x;
     const objectY = object.position.y;
 
     if (
-        playerX < objectX + 1 &&
-        playerX + 1 > objectX &&
-        playerY < objectY + 1 &&
-        playerY + 1 > objectY
+      playerX < objectX + 1 &&
+      playerX + 1 > objectX &&
+      playerY < objectY + 1 &&
+      playerY + 1 > objectY
     ) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
 }
@@ -133,7 +206,7 @@ class Particle extends THREE.Mesh {
 }
 
 class Bullet extends THREE.Mesh {
-  constructor(spawnerId,x, z, ay) {
+  constructor(spawnerId, x, z, ay) {
     super(
       new THREE.ConeGeometry(0.3, 0.7, 10),
       new THREE.MeshNormalMaterial({ color: 0x0000ff })
